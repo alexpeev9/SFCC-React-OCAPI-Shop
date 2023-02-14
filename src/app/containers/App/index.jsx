@@ -6,10 +6,12 @@ import DetailsPage from '../DetailsPage'
 import HomePage from '../HomePage'
 import NotFoundPage from '../NotFoundPage'
 import ThankYouPage from '../ThankYouPage'
+import Header from './Header'
 
 const App = () => {
   return (
     <BrowserRouter>
+      <Header />
       <Routes>
         <Route path='/' element={<HomePage />} />
         <Route path='/cart' element={<CartPage />} />
