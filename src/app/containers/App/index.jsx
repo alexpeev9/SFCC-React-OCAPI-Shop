@@ -9,6 +9,7 @@ import DetailsPage from '../DetailsPage'
 import HomePage from '../HomePage'
 import NotFoundPage from '../NotFoundPage'
 import ThankYouPage from '../ThankYouPage'
+import Footer from './Footer'
 import Header from './Header'
 
 const App = () => {
@@ -32,6 +33,7 @@ const App = () => {
         <Route path='/product/:productID' element={<DetailsPage />} />
         <Route path='*' element={<NotFoundPage />} />
       </Routes>
+      {/* <Footer /> */}
     </BrowserRouter>
   )
 }
