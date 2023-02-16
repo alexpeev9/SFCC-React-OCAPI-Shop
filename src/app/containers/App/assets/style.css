@@ -1,3 +1,11 @@
 i {
   font-size: 2rem;
 }
+
+#root {
+  margin-bottom: 6rem;
+}
+
+footer {
+  height: 5rem;
+}

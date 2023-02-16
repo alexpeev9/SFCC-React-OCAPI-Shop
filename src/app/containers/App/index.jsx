@@ -7,7 +7,7 @@ import HomePage from '../HomePage'
 import NotFoundPage from '../NotFoundPage'
 import ThankYouPage from '../ThankYouPage'
 import Header from './Header'
-// import Footer from './Footer'
+import Footer from './Footer'
 
 const App = () => {
   return (
@@ -21,7 +21,7 @@ const App = () => {
         <Route path='/product/:productID' element={<DetailsPage />} />
         <Route path='*' element={<NotFoundPage />} />
       </Routes>
-      {/* <Footer /> */}
+      <Footer />
     </BrowserRouter>
   )
 }
