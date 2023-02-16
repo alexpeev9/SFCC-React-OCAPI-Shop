@@ -9,7 +9,10 @@ const Header = () => {
       <Link to='/'>
         <img src={Logo} alt='logo' height='80' width='80' />
       </Link>
-      <Link className='d-flex align-items-center position-relative px-3' to='/'>
+      <Link
+        className='d-flex align-items-center position-relative px-3'
+        to='/cart'
+      >
         <i className='bi bi-handbag text-white'></i>
         <span className='position-absolute top-0 end-0 bg-warning text-white rounded-circle badge p-2'>
           +1

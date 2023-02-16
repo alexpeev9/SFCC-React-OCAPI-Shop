@@ -1,14 +1,18 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import useCustomerHook from '../../hooks/useCustomerHook'
 
 import { getProduct } from '../../services/productService'
 import './assets/style.css'
 import CartBtn from './CartBtn'
+import Quantity from './Quantity'
 
 const DetailsPage = () => {
   const { productID } = useParams()
+  const customerId = useCustomerHook()
 
   const [product, setProduct] = useState(null)
+  const [quantity, setQuantity] = useState(1)
 
   useEffect(() => {
     const getProductDetails = async () => {
@@ -16,7 +20,8 @@ const DetailsPage = () => {
       setProduct(response)
     }
     getProductDetails()
-  }, [productID])
+  }, [productID, setQuantity])
+
   return product ? (
     <div className='container pt-4'>
       <div className='row'>
@@ -30,14 +35,17 @@ const DetailsPage = () => {
           </div>
         </div>
         <div className='col-8'>
-          <div class='row'>
-            <h1>{product.name}</h1>
+          <div className='row'>
+            <h1>
+              {product.name} - {customerId}
+            </h1>
             <h4>
               {product.price} {product.currency}
             </h4>
             <p>{product.page_description}</p>
           </div>
-          <CartBtn />
+          <Quantity quantity={quantity} setQuantity={setQuantity} />
+          <CartBtn quantity={quantity} />
         </div>
       </div>
     </div>
