@@ -6,7 +6,6 @@ export const setJwt = async () => {
   const responseRaw = await jwtRequest() // get jwt raw token
   const responseDecoded = jwtDecode(responseRaw)
   const expires = (responseDecoded.exp - responseDecoded.iat) / 60 / 60 / 24 // convert to minutes -> hours -> days
-
   Cookies.set('JWT', responseRaw, {
     expires
   })
@@ -15,9 +14,8 @@ export const setJwt = async () => {
 }
 
 export const getJwt = async () => {
-  const jwtCookie = Cookies.get('JWT')
-  if (jwtCookie) {
-    return jwtCookie
+  if (Cookies.get('JWT')) {
+    return Cookies.get('JWT')
   } else {
     const newJwt = await setJwt()
     return newJwt

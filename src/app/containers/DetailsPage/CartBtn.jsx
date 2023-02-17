@@ -1,25 +1,17 @@
-import { createCart, addItemToCart } from '../../services/cartService'
-import { getCustomerId } from '../../services/jwtService'
+import { useContext } from 'react'
+import { addItemToCart, createCart } from '../../services/cartService'
+import { CartCountContext } from '../../utils/Context'
 
 const CartBtn = ({ quantity, productId }) => {
-  const addToCart = async () => {
-    const customerId = await getCustomerId()
-    const basketId = localStorage.getItem('basket_id')
-    const basketCustomer = localStorage.getItem('basket_customer')
+  const setCartCount = useContext(CartCountContext)[1]
 
-    if (basketCustomer === customerId && basketId) {
-      console.log('Existing')
-      const response = await addItemToCart(basketId, productId, quantity)
-      console.log(response)
-    } else {
-      console.log('New')
-      const response = await createCart(customerId)
-      localStorage.setItem(
-        'basket_customer',
-        response.customer_info.customer_id
-      )
-      localStorage.setItem('basket_id', response.basket_id)
-    }
+  const addToCart = async () => {
+    const cartId = await createCart()
+
+    const response = await addItemToCart(cartId, productId, quantity)
+
+    const cartItemsLength = response.product_items.length
+    setCartCount(cartItemsLength)
   }
   return (
     <button className='btn btn-dark' onClick={addToCart}>

@@ -19,7 +19,7 @@ const DetailsPage = () => {
       setProduct(response)
     }
     getProductDetails()
-  }, [productID, setQuantity])
+  }, [productID])
 
   return product ? (
     <div className='container pt-4'>

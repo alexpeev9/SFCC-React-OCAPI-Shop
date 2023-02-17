@@ -1,12 +1,11 @@
 import { getJwt } from '../services/jwtService'
 
 const baseRequest = async (url, method, currData) => {
-  const jwt = await getJwt()
   let body = {
     method,
     headers: {
       'Content-Type': 'application/json',
-      Authorization: jwt
+      Authorization: await getJwt()
     },
     body: JSON.stringify(currData)
   }

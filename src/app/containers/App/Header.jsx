@@ -1,9 +1,12 @@
+import { useContext } from 'react'
 import { Link } from 'react-router-dom'
-import Logo from './assets/logo.svg'
 
+import Logo from './assets/logo.svg'
+import { CartCountContext } from '../../utils/Context'
 import './assets/style.css'
 
 const Header = () => {
+  const [cartCount] = useContext(CartCountContext)
   return (
     <header className='d-flex justify-content-around align-items-center bg-dark text-white'>
       <Link to='/'>
@@ -15,7 +18,7 @@ const Header = () => {
       >
         <i className='bi bi-handbag text-white'></i>
         <span className='position-absolute top-0 end-0 bg-warning text-white rounded-circle badge p-2'>
-          +1
+          {cartCount}
         </span>
       </Link>
     </header>
