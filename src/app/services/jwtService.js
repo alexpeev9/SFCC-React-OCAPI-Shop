@@ -14,15 +14,10 @@ export const setJwt = async () => {
   return responseRaw
 }
 
-const jwt = Cookies.get('JWT')
-
-export const removeJwt = () => {
-  Cookies.remove('JWT')
-}
-
 export const getJwt = async () => {
-  if (jwt) {
-    return jwt
+  const jwtCookie = Cookies.get('JWT')
+  if (jwtCookie) {
+    return jwtCookie
   } else {
     const newJwt = await setJwt()
     return newJwt
