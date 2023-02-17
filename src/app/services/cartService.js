@@ -1,15 +1,11 @@
 import baseRequest from '../utils/baseRequest'
 
-export const createCart = async (customerId) => {
-  const response = await baseRequest('/baskets', 'POST', {
-    customer_info: {
-      customer_id: customerId
-    }
-  })
+export const createCart = async () => {
+  const response = await baseRequest('/baskets', 'POST')
   return response
 }
 
-export const createSession = async () => {
-  const response = await baseRequest('/sessions', 'POST')
+export const getCart = async (id) => {
+  const response = await baseRequest(`/baskets/${id}`, 'GET')
   return response
 }
