@@ -1,15 +1,14 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import useCustomerHook from '../../hooks/useCustomerHook'
 
-import { getProduct } from '../../services/productService'
 import './assets/style.css'
+import { getProduct } from '../../services/productService'
+
 import CartBtn from './CartBtn'
 import Quantity from './Quantity'
 
 const DetailsPage = () => {
   const { productID } = useParams()
-  const customerId = useCustomerHook()
 
   const [product, setProduct] = useState(null)
   const [quantity, setQuantity] = useState(1)
@@ -36,9 +35,7 @@ const DetailsPage = () => {
         </div>
         <div className='col-8'>
           <div className='row'>
-            <h1>
-              {product.name} - {customerId}
-            </h1>
+            <h1>{product.name}</h1>
             <h4>
               {product.price} {product.currency}
             </h4>

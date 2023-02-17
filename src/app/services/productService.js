@@ -1,6 +1,9 @@
-import baseRequest from "../utils/baseRequest"
+import baseRequest from '../utils/baseRequest'
 
 export const getProduct = async (id) => {
-    const response = await baseRequest(`/products/${id}?expand=prices,images`, 'GET');
-    return response;
-};
+  const response = await baseRequest(
+    `/products/${id}?expand=prices,images`,
+    'GET'
+  )
+  return response
+}

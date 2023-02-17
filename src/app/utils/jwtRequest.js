@@ -1,5 +1,3 @@
-import jwtDecode from 'jwt-decode'
-
 const jwtRequest = async () => {
   let body = {
     method: 'POST',
@@ -12,7 +10,7 @@ const jwtRequest = async () => {
   return new Promise((resolve, reject) => {
     fetch(`${process.env.REACT_APP_API_URL}/customers/auth`, body)
       .then((response) => {
-        return jwtDecode(response.headers.get('authorization'))
+        return response.headers.get('authorization')
       })
       .then((data) => resolve(data))
       .catch((e) => reject(e))
