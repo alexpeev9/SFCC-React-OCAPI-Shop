@@ -42,7 +42,7 @@ const DetailsPage = () => {
             <p>{product.page_description}</p>
           </div>
           <Quantity quantity={quantity} setQuantity={setQuantity} />
-          <CartBtn quantity={quantity} />
+          <CartBtn quantity={quantity} productId={productID} />
         </div>
       </div>
     </div>
