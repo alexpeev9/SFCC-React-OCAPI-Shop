@@ -43,6 +43,7 @@ export const addItemToCart = async (product_id, quantity) => {
       quantity
     }
   ])
+  console.log(response)
   return response
 }
 

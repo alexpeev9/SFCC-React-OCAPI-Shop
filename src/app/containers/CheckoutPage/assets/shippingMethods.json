@@ -1,0 +1,21 @@
+[
+    {
+        "value": "001",
+        "description": "Order received within 7-10 business days"
+    },
+    {
+        "value": "002",
+        "description": "Order received in 2 business days"
+    },
+    {
+        "value": "003",
+        "description": "Order received the next business day"
+    },
+    {
+        "value": "004",
+        "description": "Super Saver Delivery (arrives in 3-7 business days)"
+    }, {
+        "value": "005",
+        "description": "Store Pickup"
+    }
+]

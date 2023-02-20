@@ -1,15 +1,20 @@
 import { useContext } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { getCartLength, removeItemFromCart } from '../../services/cartService'
 import { CartCountContext } from '../../utils/Context'
 
 const Product = ({ item, currency }) => {
   const setCartCount = useContext(CartCountContext)[1]
+  const navigate = useNavigate()
+
   const removeProduct = async (id) => {
     const response = await removeItemFromCart(id)
     if (response) {
       const length = await getCartLength()
       setCartCount(length)
+      if (length === 0) {
+        navigate('/')
+      }
     }
   }
   return (

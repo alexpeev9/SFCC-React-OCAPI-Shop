@@ -1,4 +1,6 @@
 import { useContext, useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+
 import { CartCountContext } from '../../utils/Context'
 import { getCartItems } from '../../services/cartService'
 
@@ -10,21 +12,26 @@ const CartPage = () => {
   useEffect(() => {
     const getCart = async () => {
       const cartInfo = await getCartItems()
-      console.log(cartInfo)
       setCart(cartInfo)
     }
     getCart()
   }, [cartCount])
   return (
-    <div className='container pt-3'>
+    <main className='container py-3'>
       <h1>Cart</h1>
-      <div className='d-flex flex-column align-items-left bg-dark rounded text-white'>
+      <div className='d-flex flex-column align-items-center bg-dark rounded text-white py-3'>
         {cart && cart?.product_items?.length > 0 ? (
           <>
             <div className='container'>
               <ProductList cart={cart} />
             </div>
-            <button className='btn btn-dark'>Checkout</button>
+            <Link
+              className='btn btn-light d-flex align-items-center'
+              to='/checkout'
+            >
+              <i className='bi bi-cart-check pe-2'></i>
+              Checkout
+            </Link>
           </>
         ) : (
           <div className='row py-2'>
@@ -32,7 +39,7 @@ const CartPage = () => {
           </div>
         )}
       </div>
-    </div>
+    </main>
   )
 }
 
