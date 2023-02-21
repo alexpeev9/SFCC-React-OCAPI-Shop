@@ -1,31 +1,17 @@
 import baseRequest from '../utils/baseRequest'
 import { findCartId } from './cartService'
 
-export const addBillingAddress = async (data) => {
-  const { firstName, lastName, city, countryCode } = data
+export const addEmail = async (email) => {
   const cartId = await findCartId()
   if (cartId) {
-    const response = await baseRequest(
-      `/baskets/${cartId}/billing_address`,
-      'PUT',
-      {
-        first_name: firstName,
-        last_name: lastName,
-        full_name: `${firstName} ${lastName}`,
-        city: city,
-        country_code: countryCode,
-        postal_code: '333',
-        state_code: '222',
-        address1: 'Test',
-        phone: '+359877914513'
-      }
-    )
+    const response = await baseRequest(`/baskets/${cartId}/customer`, 'PUT', {
+      email: email
+    })
     return response
   }
 }
 
-export const addShipmentMethod = async (data) => {
-  const { shippingMethod } = data
+export const addShipmentMethod = async (shippingMethod) => {
   const cartId = await findCartId()
   if (cartId) {
     const response = await baseRequest(
@@ -40,7 +26,7 @@ export const addShipmentMethod = async (data) => {
 }
 
 export const addShipmentAddressInfo = async (data) => {
-  const { firstName, lastName, city, countryCode } = data
+  const { firstName, lastName, city, address, countryCode } = data
   const cartId = await findCartId()
   if (cartId) {
     const response = await baseRequest(
@@ -49,6 +35,7 @@ export const addShipmentAddressInfo = async (data) => {
       {
         first_name: firstName,
         last_name: lastName,
+        address1: address,
         city: city,
         country_code: countryCode
       }
@@ -57,13 +44,33 @@ export const addShipmentAddressInfo = async (data) => {
   }
 }
 
-export const addEmail = async (data) => {
-  const { email } = data
+export const addBillingAddress = async (data) => {
+  const { firstName, lastName, city, address, countryCode } = data
   const cartId = await findCartId()
   if (cartId) {
-    const response = await baseRequest(`/baskets/${cartId}/customer`, 'PUT', {
-      email: email
-    })
+    const response = await baseRequest(
+      `/baskets/${cartId}/billing_address`,
+      'PUT',
+      {
+        first_name: firstName,
+        last_name: lastName,
+        full_name: `${firstName} ${lastName}`,
+        address1: address,
+        city: city,
+        country_code: countryCode
+      }
+    )
     return response
+  }
+}
+
+export const getShippingMethods = async () => {
+  const cartId = await findCartId()
+  if (cartId) {
+    const response = await baseRequest(
+      `/baskets/${cartId}/shipments/me/shipping_methods`,
+      'GET'
+    )
+    return response.applicable_shipping_methods
   }
 }

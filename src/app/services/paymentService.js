@@ -40,6 +40,10 @@ export const createOrder = async () => {
     const response = await baseRequest(`/orders`, 'POST', {
       basket_id: cartId
     })
+    if (response._type === 'order') {
+      localStorage.removeItem('cart_customer')
+      localStorage.removeItem('cart_id')
+    }
     return response
   }
 }

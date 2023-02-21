@@ -15,8 +15,8 @@ const Dropdown = ({ name, label, options, action }) => {
       >
         {options ? (
           options.map((option, key) => (
-            <option value={option.value} key={key}>
-              {option.description}
+            <option value={option.id} key={key}>
+              {option.name} - {option.price} USD
             </option>
           ))
         ) : (

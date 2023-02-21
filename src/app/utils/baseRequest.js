@@ -9,7 +9,6 @@ const baseRequest = async (url, method, currData) => {
     },
     body: JSON.stringify(currData)
   }
-  console.log(`RequestURL: ${process.env.REACT_APP_API_URL}${url}`)
   return new Promise((resolve, reject) => {
     fetch(`${process.env.REACT_APP_API_URL}${url}`, body)
       .then((response) => {

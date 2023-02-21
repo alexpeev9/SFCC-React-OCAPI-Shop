@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { CartCountContext } from '../../utils/Context'
 import { getCartItems } from '../../services/cartService'
 
-import ProductList from './ProductList'
+import ProductList from '../../components/ProductList'
 
 const CartPage = () => {
   const [cart, setCart] = useState(null)

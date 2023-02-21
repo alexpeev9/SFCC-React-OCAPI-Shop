@@ -29,7 +29,7 @@ const Product = ({ item, currency }) => {
       </div>
       <div className='col-6 col-xl-1 py-2'>
         <div className='d-xl-none d-inline pe-2 h6'>Price:</div>
-        {item.price} {currency}
+        {item.price.toFixed(2)} {currency}
       </div>
       <div className='col-12 col-xl-3 d-flex justify-content-xl-around py-2'>
         <Link

@@ -1,3 +1,4 @@
+import Prices from './Prices'
 import Product from './Product'
 
 const ProductList = ({ cart }) => {
@@ -12,6 +13,7 @@ const ProductList = ({ cart }) => {
       {cart.product_items?.map((item, key) => (
         <Product item={item} key={key} currency={cart.currency} />
       ))}
+      <Prices cart={cart} />
     </>
   )
 }

@@ -23,7 +23,6 @@ const Payment = ({ setStep }) => {
     const data = Object.fromEntries(formData)
     setCardInfo(data)
     const payment = await addPaymentMethod(data)
-    console.log(payment)
     if (payment) {
       const order = await createOrder()
       console.log(order)
@@ -83,11 +82,11 @@ const Payment = ({ setStep }) => {
           />
           <div className='col-12 d-flex justify-content-center'>
             <button className='btn btn-light px-4 my-0 mt-2 mb-1' type='submit'>
-              <i className='bi bi-map'></i> Add Address
+              <i class='bi bi-credit-card'></i> Make Order
             </button>
           </div>
         </form>
-        <button className='btn btn-light me-2' onClick={() => setStep(1)}>
+        <button className='btn btn-light me-2' onClick={() => setStep(3)}>
           Back
         </button>
       </div>

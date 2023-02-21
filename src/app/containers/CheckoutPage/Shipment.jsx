@@ -2,29 +2,41 @@ import {
   addBillingAddress,
   addEmail,
   addShipmentAddressInfo,
-  addShipmentMethod
+  addShipmentMethod,
+  getShippingMethods
 } from '../../services/shipmentService'
-import shippingMethods from './assets/shippingMethods.json'
 
 import InputField from '../../components/InputField'
 import Dropdown from '../../components/Dropdown'
+import { Link } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 
 const Shipment = ({ shippingInfo, setShippingInfo, setStep }) => {
-  const onInputChange = (e) => {
-    const { name, value } = e.target
-    setShippingInfo({ ...shippingInfo, [name]: value })
-  }
+  const [options, setOptions] = useState(null)
+
+  useEffect(() => {
+    const getCart = async () => {
+      const response = await getShippingMethods()
+      setOptions(response)
+    }
+    getCart()
+  }, [])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     const formData = new FormData(e.target)
     const data = Object.fromEntries(formData)
-    setShippingInfo(data)
-    await addEmail(data)
-    await addShipmentMethod(data)
+    setShippingInfo(data) // in case user goes one step back
+    await addEmail(data.email)
+    await addShipmentMethod(data.shippingMethod)
     await addShipmentAddressInfo(data)
     await addBillingAddress(data)
     setStep(2)
+  }
+
+  const onInputChange = (e) => {
+    const { name, value } = e.target
+    setShippingInfo({ ...shippingInfo, [name]: value })
   }
 
   return (
@@ -35,6 +47,13 @@ const Shipment = ({ shippingInfo, setShippingInfo, setStep }) => {
           className='row d-flex justify-content-center'
           onSubmit={handleSubmit}
         >
+          <InputField
+            name={'email'}
+            label={'Email'}
+            type={'text'}
+            value={shippingInfo.email}
+            action={onInputChange}
+          />
           <InputField
             name={'firstName'}
             label={'First Name'}
@@ -50,6 +69,13 @@ const Shipment = ({ shippingInfo, setShippingInfo, setStep }) => {
             action={onInputChange}
           />
           <InputField
+            name={'countryCode'}
+            label={'Country Code'}
+            type={'text'}
+            value={shippingInfo.countryCode}
+            action={onInputChange}
+          />
+          <InputField
             name={'city'}
             label={'City'}
             type={'text'}
@@ -57,23 +83,16 @@ const Shipment = ({ shippingInfo, setShippingInfo, setStep }) => {
             action={onInputChange}
           />
           <InputField
-            name={'countryCode'}
-            label={'Country Code'}
+            name={'address'}
+            label={'Address'}
             type={'text'}
-            value={shippingInfo.countryCode}
+            value={shippingInfo.address}
             action={onInputChange}
           />
           <Dropdown
             name={'shippingMethod'}
             label={'Shipping Method'}
-            options={shippingMethods}
-            action={onInputChange}
-          />
-          <InputField
-            name={'email'}
-            label={'Email'}
-            type={'text'}
-            value={shippingInfo.email}
+            options={options}
             action={onInputChange}
           />
           <div className='col-12 d-flex justify-content-center'>
@@ -82,6 +101,9 @@ const Shipment = ({ shippingInfo, setShippingInfo, setStep }) => {
             </button>
           </div>
         </form>
+        <Link className='btn btn-light me-2' to='/cart'>
+          Back
+        </Link>
       </div>
     </>
   )
