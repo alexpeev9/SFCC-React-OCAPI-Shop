@@ -1,8 +1,13 @@
+import {
+  addBillingAddress,
+  addEmail,
+  addShipmentAddressInfo,
+  addShipmentMethod
+} from '../../services/shipmentService'
+import shippingMethods from './assets/shippingMethods.json'
+
 import InputField from '../../components/InputField'
 import Dropdown from '../../components/Dropdown'
-import { addPaymentMethod, addShipment } from '../../services/checkoutService'
-
-import shippingMethods from './assets/shippingMethods.json'
 
 const Shipment = ({ shippingInfo, setShippingInfo, setStep }) => {
   const onInputChange = (e) => {
@@ -15,8 +20,10 @@ const Shipment = ({ shippingInfo, setShippingInfo, setStep }) => {
     const formData = new FormData(e.target)
     const data = Object.fromEntries(formData)
     setShippingInfo(data)
-    await addShipment(data)
-    const order = await addPaymentMethod()
+    await addEmail(data)
+    await addShipmentMethod(data)
+    await addShipmentAddressInfo(data)
+    await addBillingAddress(data)
     setStep(2)
   }
 
@@ -60,6 +67,13 @@ const Shipment = ({ shippingInfo, setShippingInfo, setStep }) => {
             name={'shippingMethod'}
             label={'Shipping Method'}
             options={shippingMethods}
+            action={onInputChange}
+          />
+          <InputField
+            name={'email'}
+            label={'Email'}
+            type={'text'}
+            value={shippingInfo.email}
             action={onInputChange}
           />
           <div className='col-12 d-flex justify-content-center'>

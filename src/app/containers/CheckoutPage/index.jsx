@@ -15,7 +15,8 @@ const CheckoutPage = () => {
     lastName: '',
     city: '',
     countryCode: '',
-    shippingMethod: ''
+    shippingMethod: '',
+    email: ''
   })
 
   return cart ? (
