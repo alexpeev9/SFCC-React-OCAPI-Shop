@@ -92,8 +92,18 @@ const Shipment = ({ shippingInfo, setShippingInfo, setStep }) => {
           <Dropdown
             name={'shippingMethod'}
             label={'Shipping Method'}
-            options={options}
             action={onInputChange}
+            body={
+              options ? (
+                options.map((option, key) => (
+                  <option value={option.id} key={key}>
+                    {option.name} - {option.price} USD
+                  </option>
+                ))
+              ) : (
+                <option value='error'>Currently, no shipping methods</option>
+              )
+            }
           />
           <div className='col-12 d-flex justify-content-center'>
             <button className='btn btn-light px-4 my-0 mt-2 mb-1' type='submit'>

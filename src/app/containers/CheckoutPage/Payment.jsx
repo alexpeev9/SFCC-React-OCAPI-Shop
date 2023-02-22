@@ -1,8 +1,22 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import Dropdown from '../../components/Dropdown'
 import InputField from '../../components/InputField'
-import { addPaymentMethod, createOrder } from '../../services/paymentService'
+import {
+  addPaymentMethod,
+  createOrder,
+  getPaymentMethods
+} from '../../services/paymentService'
 
 const Payment = ({ setStep, setSuccessMessage }) => {
+  const [paymentMethods, setPaymentMethods] = useState(null)
+  useEffect(() => {
+    const getCart = async () => {
+      const response = await getPaymentMethods()
+      setPaymentMethods(response)
+    }
+    getCart()
+  }, [])
+
   const [cardInfo, setCardInfo] = useState({
     cardNumber: '',
     securityCode: '',
@@ -40,6 +54,23 @@ const Payment = ({ setStep, setSuccessMessage }) => {
           className='row d-flex justify-content-center'
           onSubmit={handleSubmit}
         >
+          <Dropdown
+            name={'cardType'}
+            label={'Card Type'}
+            action={onInputChange}
+            body={
+              paymentMethods ? (
+                paymentMethods.map((method, key) => (
+                  <option value={method.card_type} key={key}>
+                    {method.name}
+                  </option>
+                ))
+              ) : (
+                <option value='error'>Currently, no shipping methods</option>
+              )
+            }
+          />
+          <hr className='my-3' />
           <InputField
             name={'cardNumber'}
             label={'Card Number'}
@@ -59,13 +90,6 @@ const Payment = ({ setStep, setSuccessMessage }) => {
             label={'Card Owner'}
             type={'text'}
             value={cardInfo.holder}
-            action={onInputChange}
-          />
-          <InputField
-            name={'cardType'}
-            label={'Card Type'}
-            type={'text'}
-            value={cardInfo.cardType}
             action={onInputChange}
           />
           <InputField

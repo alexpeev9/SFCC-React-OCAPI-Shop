@@ -8,7 +8,7 @@ const Success = ({ successMessage }) => {
     const getAsset = async () => {
       const response = await getContentAsset('thanks-for-purchase-message')
       setSuccessMsgPlaceHolder(
-        response.c_body.replace('${orderID}', successMessage)
+        response.c_body.replace('[orderID]', successMessage)
       )
     }
     getAsset()

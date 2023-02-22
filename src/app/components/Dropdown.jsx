@@ -1,4 +1,4 @@
-const Dropdown = ({ name, label, options, action }) => {
+const Dropdown = ({ name, label, action, body }) => {
   return (
     <>
       <label
@@ -13,15 +13,7 @@ const Dropdown = ({ name, label, options, action }) => {
         name={name}
         required
       >
-        {options ? (
-          options.map((option, key) => (
-            <option value={option.id} key={key}>
-              {option.name} - {option.price} USD
-            </option>
-          ))
-        ) : (
-          <option value='error'>Currently, no shipping methods</option>
-        )}
+        {body}
       </select>
     </>
   )

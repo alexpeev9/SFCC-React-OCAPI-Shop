@@ -34,6 +34,18 @@ export const addPaymentMethod = async (data) => {
   }
 }
 
+export const getPaymentMethods = async () => {
+  const cartId = await findCartId()
+  if (cartId) {
+    const response = await baseRequest(
+      `/baskets/${cartId}/payment_methods`,
+      'GET'
+    )
+
+    return response.applicable_payment_methods[0].cards
+  }
+}
+
 export const createOrder = async () => {
   const cartId = await findCartId()
   if (cartId) {
