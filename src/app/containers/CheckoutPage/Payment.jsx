@@ -22,9 +22,10 @@ const Payment = ({ setStep, setSuccessMessage }) => {
     getCart()
   }, [])
   const [cardInfo, setCardInfo] = useState({
+    firstName: '',
+    lastName: '',
     cardNumber: '',
     securityCode: '',
-    holder: '',
     cardType: '',
     expirationMonth: '',
     expirationYear: ''
@@ -107,13 +108,6 @@ const Payment = ({ setStep, setSuccessMessage }) => {
             title={`Security Code must be ${requirements.security_code_length} numbers long`}
           />
           <InputField
-            name={'holder'}
-            label={'Card Owner'}
-            type={'text'}
-            value={cardInfo.holder}
-            action={onInputChange}
-          />
-          <InputField
             name={'expirationMonth'}
             label={'Expiration Month'}
             type={'number'}
@@ -129,6 +123,20 @@ const Payment = ({ setStep, setSuccessMessage }) => {
             value={cardInfo.expirationYear}
             min={2023}
             max={2033}
+            action={onInputChange}
+          />
+          <InputField
+            name={'firstName'}
+            label={'First Name'}
+            type={'text'}
+            value={cardInfo.firstName}
+            action={onInputChange}
+          />
+          <InputField
+            name={'lastName'}
+            label={'Last Name'}
+            type={'text'}
+            value={cardInfo.lastName}
             action={onInputChange}
           />
           <div className='col-12 d-flex justify-content-center'>

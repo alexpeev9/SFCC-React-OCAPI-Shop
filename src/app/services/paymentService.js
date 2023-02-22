@@ -5,7 +5,8 @@ export const addPaymentMethod = async (data) => {
   const {
     cardNumber,
     securityCode,
-    holder,
+    firstName,
+    lastName,
     cardType,
     expirationMonth,
     expirationYear
@@ -22,7 +23,7 @@ export const addPaymentMethod = async (data) => {
         payment_card: {
           number: cardNumber,
           security_code: securityCode,
-          holder: holder,
+          holder: `${firstName} ${lastName}`,
           card_type: cardType,
           expiration_month: Number(expirationMonth),
           expiration_year: Number(expirationYear)

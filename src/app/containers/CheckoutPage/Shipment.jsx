@@ -50,7 +50,7 @@ const Shipment = ({ shippingInfo, setShippingInfo, setStep }) => {
           <InputField
             name={'email'}
             label={'Email'}
-            type={'text'}
+            type={'email'}
             value={shippingInfo.email}
             action={onInputChange}
           />
