@@ -6,21 +6,34 @@ import { getProduct } from '../../services/productService'
 
 import CartBtn from './CartBtn'
 import Quantity from './Quantity'
+import Attributes from './Attributes'
 
 const DetailsPage = () => {
   const { productID } = useParams()
 
   const [product, setProduct] = useState(null)
   const [quantity, setQuantity] = useState(1)
-
+  const [selectedAttributes, setSelectedAttributes] = useState({})
+  const [attributes, setAttributes] = useState([])
+  const [variants, setVariants] = useState([])
   useEffect(() => {
     const getProductDetails = async () => {
       const response = await getProduct(productID)
       setProduct(response)
+      if (response.variants && response.variation_attributes) {
+        setVariants(response.variants)
+        setAttributes(response.variation_attributes)
+        setSelectedAttributes(
+          response.variation_attributes
+            .map((a) => a.id)
+            .reduce((accumulator, value) => {
+              return { ...accumulator, [value]: '' }
+            }, {})
+        )
+      }
     }
     getProductDetails()
   }, [productID])
-
   return product ? (
     <div className='container pt-4'>
       <div className='row'>
@@ -41,8 +54,25 @@ const DetailsPage = () => {
             </h4>
             <p>{product.page_description}</p>
           </div>
+          <Attributes
+            attributes={attributes}
+            setAttributes={setAttributes}
+            selectedAttributes={selectedAttributes}
+            setSelectedAttributes={setSelectedAttributes}
+            variants={variants}
+          />
           <Quantity quantity={quantity} setQuantity={setQuantity} />
-          <CartBtn quantity={quantity} productId={productID} />
+          {product.inventory.orderable ? (
+            <CartBtn
+              quantity={quantity}
+              selectedAttributes={selectedAttributes}
+              variants={variants}
+            />
+          ) : (
+            <p className='text-danger h6'>
+              Sorry, the product is out of Stock.
+            </p>
+          )}
         </div>
       </div>
     </div>
