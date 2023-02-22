@@ -1,4 +1,14 @@
-const InputField = ({ name, label, type, value, action }) => {
+const InputField = ({
+  name,
+  label,
+  type,
+  value,
+  action,
+  pattern,
+  title,
+  min,
+  max
+}) => {
   return (
     <>
       <label htmlFor={name} className='col-5 col-xl-2 text-center my-2 py-1'>
@@ -11,6 +21,10 @@ const InputField = ({ name, label, type, value, action }) => {
         name={name}
         value={value}
         onChange={action}
+        pattern={pattern}
+        title={title}
+        min={min}
+        max={max}
         required
       />
     </>

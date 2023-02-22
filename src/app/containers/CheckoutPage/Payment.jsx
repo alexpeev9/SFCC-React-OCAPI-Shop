@@ -9,14 +9,18 @@ import {
 
 const Payment = ({ setStep, setSuccessMessage }) => {
   const [paymentMethods, setPaymentMethods] = useState(null)
+  const [requirements, setRequirements] = useState({
+    number_lengths: [13, 16],
+    security_code_length: 3
+  })
   useEffect(() => {
     const getCart = async () => {
       const response = await getPaymentMethods()
       setPaymentMethods(response)
+      setRequirements(response[0]) // get first method requirements
     }
     getCart()
   }, [])
-
   const [cardInfo, setCardInfo] = useState({
     cardNumber: '',
     securityCode: '',
@@ -25,6 +29,13 @@ const Payment = ({ setStep, setSuccessMessage }) => {
     expirationMonth: '',
     expirationYear: ''
   })
+
+  const onPaymentChange = (e) => {
+    const { name, value } = e.target
+    const paymentMethod = paymentMethods.find((p) => p.card_type === value)
+    setRequirements(paymentMethod)
+    setCardInfo({ ...cardInfo, [name]: value })
+  }
 
   const onInputChange = (e) => {
     const { name, value } = e.target
@@ -57,7 +68,7 @@ const Payment = ({ setStep, setSuccessMessage }) => {
           <Dropdown
             name={'cardType'}
             label={'Card Type'}
-            action={onInputChange}
+            action={onPaymentChange}
             body={
               paymentMethods ? (
                 paymentMethods.map((method, key) => (
@@ -77,6 +88,14 @@ const Payment = ({ setStep, setSuccessMessage }) => {
             type={'text'}
             value={cardInfo.cardNumber}
             action={onInputChange}
+            pattern={`\\d{${requirements.number_lengths[0]},${
+              requirements.number_lengths[1] || requirements.number_lengths[0]
+            }}`}
+            title={`Card Number must be ${
+              requirements.number_lengths[1]
+                ? `${requirements.number_lengths[0]} - ${requirements.number_lengths[1]}`
+                : requirements.number_lengths[0]
+            } characters long`}
           />
           <InputField
             name={'securityCode'}
@@ -84,6 +103,8 @@ const Payment = ({ setStep, setSuccessMessage }) => {
             type={'text'}
             value={cardInfo.securityCode}
             action={onInputChange}
+            pattern={`\\d{${requirements.security_code_length},${requirements.security_code_length}}`}
+            title={`Security Code must be ${requirements.security_code_length} numbers long`}
           />
           <InputField
             name={'holder'}
@@ -97,6 +118,8 @@ const Payment = ({ setStep, setSuccessMessage }) => {
             label={'Expiration Month'}
             type={'number'}
             value={cardInfo.expirationMonth}
+            min={1}
+            max={12}
             action={onInputChange}
           />
           <InputField
@@ -104,6 +127,8 @@ const Payment = ({ setStep, setSuccessMessage }) => {
             label={'Expiration Year'}
             type={'number'}
             value={cardInfo.expirationYear}
+            min={2023}
+            max={2033}
             action={onInputChange}
           />
           <div className='col-12 d-flex justify-content-center'>
