@@ -10,6 +10,7 @@ import Success from './Success'
 const CheckoutPage = () => {
   const cart = useContext(CartCountContext)[0]
   const [step, setStep] = useState(1)
+  const [successMessage, setSuccessMessage] = useState(null)
 
   const [shippingInfo, setShippingInfo] = useState({
     email: '',
@@ -33,9 +34,9 @@ const CheckoutPage = () => {
       ) : step === 2 ? (
         <Preview setStep={setStep} />
       ) : step === 3 ? (
-        <Payment setStep={setStep} />
+        <Payment setStep={setStep} setSuccessMessage={setSuccessMessage} />
       ) : (
-        <Success setStep={setStep} />
+        <Success successMessage={successMessage} />
       )}
     </main>
   ) : (

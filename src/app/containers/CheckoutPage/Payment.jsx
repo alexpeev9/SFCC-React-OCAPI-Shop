@@ -2,7 +2,7 @@ import { useState } from 'react'
 import InputField from '../../components/InputField'
 import { addPaymentMethod, createOrder } from '../../services/paymentService'
 
-const Payment = ({ setStep }) => {
+const Payment = ({ setStep, setSuccessMessage }) => {
   const [cardInfo, setCardInfo] = useState({
     cardNumber: '',
     securityCode: '',
@@ -25,9 +25,11 @@ const Payment = ({ setStep }) => {
     const payment = await addPaymentMethod(data)
     if (payment) {
       const order = await createOrder()
-      console.log(order)
+      if (order) {
+        setSuccessMessage(order.order_no)
+      }
     }
-    setStep(3)
+    setStep(4)
   }
 
   return (
@@ -82,11 +84,11 @@ const Payment = ({ setStep }) => {
           />
           <div className='col-12 d-flex justify-content-center'>
             <button className='btn btn-light px-4 my-0 mt-2 mb-1' type='submit'>
-              <i class='bi bi-credit-card'></i> Make Order
+              <i className='bi bi-credit-card'></i> Make Order
             </button>
           </div>
         </form>
-        <button className='btn btn-light me-2' onClick={() => setStep(3)}>
+        <button className='btn btn-light me-2' onClick={() => setStep(2)}>
           Back
         </button>
       </div>
