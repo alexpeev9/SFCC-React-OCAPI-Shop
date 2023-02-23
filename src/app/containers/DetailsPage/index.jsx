@@ -34,16 +34,23 @@ const DetailsPage = () => {
     }
     getProductDetails()
   }, [productID])
+  console.log(product)
+  console.log(selectedAttributes)
   return product ? (
     <div className='container pt-4'>
       <div className='row'>
         <div className='col-4'>
           <div className='main-image'>
-            <img
-              src={product.image_groups[0].images[0].link}
-              alt={product.image_groups[0].images[0].title}
-              className='img-fluid rounded'
-            />
+            {product.image_groups[1].images.map((i, key) => {
+              return (
+                <img
+                  key={key}
+                  src={i.link}
+                  className='d-block w-100 img-fluid my-2'
+                  alt={i.title}
+                />
+              )
+            })}
           </div>
         </div>
         <div className='col-8'>
@@ -67,6 +74,7 @@ const DetailsPage = () => {
               quantity={quantity}
               selectedAttributes={selectedAttributes}
               variants={variants}
+              productBaseID={productID}
             />
           ) : (
             <p className='text-danger h6'>

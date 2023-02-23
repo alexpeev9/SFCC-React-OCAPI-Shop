@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import Dropdown from '../../components/Dropdown'
 import InputField from '../../components/InputField'
 import {
@@ -6,8 +6,10 @@ import {
   createOrder,
   getPaymentMethods
 } from '../../services/paymentService'
+import { CartCountContext } from '../../utils/Context'
 
 const Payment = ({ setStep, setSuccessMessage }) => {
+  const setCartCount = useContext(CartCountContext)[1]
   const [paymentMethods, setPaymentMethods] = useState(null)
   const [requirements, setRequirements] = useState({
     number_lengths: [13, 16],
@@ -51,6 +53,7 @@ const Payment = ({ setStep, setSuccessMessage }) => {
     const payment = await addPaymentMethod(data)
     if (payment) {
       const order = await createOrder()
+      setCartCount(0)
       if (order) {
         setSuccessMessage(order.order_no)
       }
