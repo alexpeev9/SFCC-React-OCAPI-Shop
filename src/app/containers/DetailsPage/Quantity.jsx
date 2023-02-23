@@ -7,21 +7,24 @@ const Quantity = ({ quantity, setQuantity }) => {
     }
   }
   return (
-    <div className='pb-2'>
-      <button
-        onClick={() => changeQuantity('increase')}
-        className='btn btn-dark me-2'
-      >
-        +
-      </button>
-      {quantity}
-      <button
-        onClick={() => changeQuantity('decrease')}
-        className='btn btn-dark ms-2'
-      >
-        -
-      </button>
-    </div>
+    <>
+      <p className='h5'>Quantity:</p>
+      <div className='pb-2'>
+        <button
+          onClick={() => changeQuantity('increase')}
+          className='btn btn-dark me-2'
+        >
+          +
+        </button>
+        {quantity}
+        <button
+          onClick={() => changeQuantity('decrease')}
+          className='btn btn-dark ms-2'
+        >
+          -
+        </button>
+      </div>
+    </>
   )
 }
 

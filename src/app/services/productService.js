@@ -7,3 +7,8 @@ export const getProduct = async (id) => {
   )
   return response
 }
+
+export const getProductImages = async (id) => {
+  const response = await baseRequest(`/products/${id}/images`, 'GET')
+  return response
+}

@@ -28,9 +28,16 @@ const CartBtn = ({ quantity, selectedAttributes, variants, productBaseID }) => {
     Object.values(selectedAttributes).length !== 0
 
   return (
-    <button disabled={isDisabled} className='btn btn-dark' onClick={addToCart}>
-      Add to Cart
-    </button>
+    <>
+      <p className='h5'>Actions:</p>
+      <button
+        disabled={isDisabled}
+        className={`btn ${isDisabled ? 'btn-dark' : 'btn-warning'}`}
+        onClick={addToCart}
+      >
+        Add to Cart
+      </button>
+    </>
   )
 }
 

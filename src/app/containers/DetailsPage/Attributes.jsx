@@ -1,38 +1,27 @@
-import { useState } from 'react'
+import { getProductImages } from '../../services/productService'
 
 const Attributes = ({
   attributes,
   selectedAttributes,
   setSelectedAttributes,
-  variants
+  variants,
+  setImages
 }) => {
-  const [availableAttr, setAvailableAttr] = useState({})
-  const selectAttribute = (attribute, value) => {
-    const obj = {}
+  const selectAttribute = async (attribute, value) => {
     setSelectedAttributes({ ...selectedAttributes, [attribute]: value })
-    variants
-      .filter((v) => {
+    if (attribute === 'color') {
+      const productId = variants.filter((v) => {
         return v.variation_values[attribute] === value
-      })
-      .forEach((v) => {
-        Object.entries(v.variation_values).forEach((c) => {
-          if (!obj.hasOwnProperty(c[0])) {
-            obj[c[0]] = []
-            obj[c[0]].push(c[1])
-          } else {
-            if (!obj[c[0]].includes(c[1])) {
-              obj[c[0]].push(c[1])
-            }
-          }
-        })
-      })
-    setAvailableAttr(obj)
+      })[0].product_id
+      const images = await getProductImages(productId)
+      setImages(images)
+    }
   }
   return (
     <>
       {attributes?.map((a, key) => (
         <div key={key}>
-          <span className='h5'>{a.name}</span>
+          <p className='h5'>{a.name}:</p>
           {a.values?.map((v, key) =>
             v.orderable ? (
               <button
@@ -42,11 +31,6 @@ const Attributes = ({
                   selectedAttributes[a.id] === v.value
                     ? 'btn-warning'
                     : 'btn-dark'
-                } ${
-                  Object.keys(availableAttr).length === 0 ||
-                  availableAttr[a.id]?.includes(v.value)
-                    ? 'd-inline-block'
-                    : 'd-none'
                 }`}
                 onClick={() => selectAttribute(a.id, v.value)}
               >
