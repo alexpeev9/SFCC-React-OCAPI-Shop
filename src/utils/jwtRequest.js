@@ -7,6 +7,7 @@ const jwtRequest = async () => {
     },
     body: JSON.stringify({ type: 'guest' })
   }
+
   return new Promise((resolve, reject) => {
     fetch(`${process.env.REACT_APP_API_URL}/customers/auth`, body)
       .then((response) => {
