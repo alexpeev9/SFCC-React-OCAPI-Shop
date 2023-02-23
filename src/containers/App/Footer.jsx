@@ -1,21 +1,19 @@
-import { useEffect, useState } from 'react'
-
-import { getContentAsset } from '../../services/contentAssetService'
+import useGetContentAsset from '../../hooks/useGetContentAsset'
 
 const Footer = () => {
-  const [footerInfo, setFooterInfo] = useState(null)
-  useEffect(() => {
-    const getAsset = async () => {
-      const response = await getContentAsset('ocapi-footer')
-      setFooterInfo(response.c_body)
-    }
-    getAsset()
-  }, [])
+  const { data, error } = useGetContentAsset('ocapi-footer')
+
   return (
-    <footer
-      className='position-fixed bottom-0 w-100 d-flex flex-wrap gap-5 justify-content-center align-items-center bg-dark'
-      dangerouslySetInnerHTML={{ __html: footerInfo }}
-    ></footer>
+    <>
+      {!error ? (
+        <footer
+          className='position-fixed bottom-0 w-100 d-flex flex-wrap gap-5 justify-content-center align-items-center bg-dark'
+          dangerouslySetInnerHTML={{ __html: data?.c_body }}
+        ></footer>
+      ) : (
+        <></>
+      )}
+    </>
   )
 }
 

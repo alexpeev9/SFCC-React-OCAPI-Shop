@@ -1,6 +1,5 @@
 import { useContext } from 'react'
 import { Link } from 'react-router-dom'
-
 import Logo from './assets/logo.svg'
 import { CartCountContext } from '../../utils/Context'
 import './assets/style.css'

@@ -1,11 +1,9 @@
-import { getProductImages } from '../../services/productService'
-
 const Attributes = ({
   attributes,
   selectedAttributes,
   setSelectedAttributes,
   variants,
-  setImages
+  setProductId
 }) => {
   const selectAttribute = async (attribute, value) => {
     setSelectedAttributes({ ...selectedAttributes, [attribute]: value })
@@ -13,8 +11,7 @@ const Attributes = ({
       const productId = variants.filter((v) => {
         return v.variation_values[attribute] === value
       })[0].product_id
-      const images = await getProductImages(productId)
-      setImages(images)
+      setProductId(productId)
     }
   }
   return (
