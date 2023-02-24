@@ -4,17 +4,18 @@ import Router from './Router'
 import Footer from './Footer'
 
 import './assets/style.css'
+import { CartProvider } from '../../contexts/CartContext'
 
 const App = () => {
   return (
-    <TokenProvider>
-      {/* <CartCountContext.Provider value={[cartCount, setCartCount]}> */}
-      <BrowserRouter>
-        <Router />
-      </BrowserRouter>
-      <Footer />
-      {/* </CartCountContext.Provider> */}
-    </TokenProvider>
+    <BrowserRouter>
+      <TokenProvider>
+        <CartProvider>
+          <Router />
+          <Footer />
+        </CartProvider>
+      </TokenProvider>
+    </BrowserRouter>
   )
 }
 
