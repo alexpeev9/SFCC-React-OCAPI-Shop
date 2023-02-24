@@ -40,7 +40,6 @@ const Payment = ({ setStep, setSuccessMessage }) => {
   const makeOrder = async () => {
     await addPayment(cardInfo)
     await createOrder()
-    console.log(orderNumber)
   }
 
   return (
