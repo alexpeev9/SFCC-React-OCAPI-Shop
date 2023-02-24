@@ -30,7 +30,7 @@ export const addShipmentAddressInfo = async (data) => {
   const cartId = await findCartId()
   if (cartId) {
     const response = await baseRequest(
-      `/baskets/${cartId}/shipments/me/shipping_address `,
+      `/baskets/${cartId}/shipments/me/shipping_address`,
       'PUT',
       {
         first_name: firstName,

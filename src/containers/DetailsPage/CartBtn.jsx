@@ -1,13 +1,13 @@
 import { useCartContext } from '../../contexts/CartContext'
-import useAddToCart from '../../hooks/useAddToCart'
+import useAddItemToCart from '../../hooks/useAddItemToCart'
 import useCreateCart from '../../hooks/useCreateCart'
 
 const CartBtn = ({ quantity, selectedAttributes, variants, productBaseID }) => {
   const { cart } = useCartContext()
   const { createCart } = useCreateCart()
-  const { addToCart, isAddedToCart } = useAddToCart()
+  const { addItemToCart, isAddedToCart } = useAddItemToCart()
 
-  const addItemToCart = async () => {
+  const addToCart = async () => {
     let productId
     if (selectedAttributes) {
       productId = variants.find((v) => {
@@ -24,7 +24,7 @@ const CartBtn = ({ quantity, selectedAttributes, variants, productBaseID }) => {
       createCart()
     }
 
-    addToCart(quantity, productId)
+    addItemToCart(quantity, productId)
   }
 
   const isDisabled = selectedAttributes
@@ -37,7 +37,7 @@ const CartBtn = ({ quantity, selectedAttributes, variants, productBaseID }) => {
       <button
         disabled={isDisabled && !isAddedToCart}
         className={`btn ${isDisabled ? 'btn-dark' : 'btn-warning'}`}
-        onClick={addItemToCart}
+        onClick={addToCart}
       >
         Add to Cart
       </button>

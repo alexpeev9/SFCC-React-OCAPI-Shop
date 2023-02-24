@@ -1,36 +1,23 @@
-import {
-  addBillingAddress,
-  addEmail,
-  addShipmentAddressInfo,
-  addShipmentMethod,
-  getShippingMethods
-} from '../../services/shipmentService'
-
 import InputField from '../../components/InputField'
 import Dropdown from '../../components/Dropdown'
 import { Link } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import useGetShippingMethods from '../../hooks/useGetShippingMethods'
+import useAddEmailToCart from '../../hooks/useAddEmailToCart'
+import useAddShippingMethodToCart from '../../hooks/useAddShippingMethodToCart'
+import useAddShippingAddress from '../../hooks/useAddShippingAddress'
+import useAddBillingAddress from '../../hooks/useAddBillingAddress'
 
-const Shipment = ({ shippingInfo, setShippingInfo, setStep }) => {
-  const [options, setOptions] = useState(null)
+const Shipment = ({ shippingInfo, setShippingInfo, methods, setStep }) => {
+  const { addEmailToCart } = useAddEmailToCart()
+  const { addShippingMethodToCart } = useAddShippingMethodToCart()
+  const { addShippingAddress } = useAddShippingAddress()
+  const { addBillingAddress } = useAddBillingAddress()
 
-  useEffect(() => {
-    const getCart = async () => {
-      const response = await getShippingMethods()
-      setOptions(response)
-    }
-    getCart()
-  }, [])
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    const formData = new FormData(e.target)
-    const data = Object.fromEntries(formData)
-    setShippingInfo(data) // in case user goes one step back
-    await addEmail(data.email)
-    await addShipmentMethod(data.shippingMethod)
-    await addShipmentAddressInfo(data)
-    await addBillingAddress(data)
+  const handleSubmit = async () => {
+    await addEmailToCart(shippingInfo.email)
+    await addShippingMethodToCart(shippingInfo.shippingMethod)
+    await addShippingAddress(shippingInfo)
+    await addBillingAddress(shippingInfo)
     setStep(2)
   }
 
@@ -38,7 +25,6 @@ const Shipment = ({ shippingInfo, setShippingInfo, setStep }) => {
     const { name, value } = e.target
     setShippingInfo({ ...shippingInfo, [name]: value })
   }
-
   return (
     <>
       <h2>Shipping Info</h2>
@@ -94,10 +80,10 @@ const Shipment = ({ shippingInfo, setShippingInfo, setStep }) => {
             label={'Shipping Method'}
             action={onInputChange}
             body={
-              options ? (
-                options.map((option, key) => (
-                  <option value={option.id} key={key}>
-                    {option.name} - {option.price} USD
+              methods ? (
+                methods.map((method, key) => (
+                  <option value={method.id} key={key}>
+                    {method.name} - {method.price} USD
                   </option>
                 ))
               ) : (

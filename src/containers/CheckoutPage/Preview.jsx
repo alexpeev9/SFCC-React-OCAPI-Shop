@@ -2,17 +2,10 @@ import { useContext, useEffect, useState } from 'react'
 import { getCartItems } from '../../services/cartService'
 import { CartCountContext } from '../../utils/Context'
 import ProductList from '../../components/ProductList'
+import { useCartContext } from '../../contexts/CartContext'
 
 const Preview = ({ setStep }) => {
-  const [cart, setCart] = useState(null)
-  const cartCount = useContext(CartCountContext)[0]
-  useEffect(() => {
-    const getCart = async () => {
-      const cartInfo = await getCartItems()
-      setCart(cartInfo)
-    }
-    getCart()
-  }, [cartCount])
+  const { cart } = useCartContext()
   return (
     <>
       <h2>Payment Info</h2>
