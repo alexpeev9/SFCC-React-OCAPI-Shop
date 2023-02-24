@@ -1,7 +1,6 @@
 import InputField from '../../components/InputField'
 import Dropdown from '../../components/Dropdown'
 import { Link } from 'react-router-dom'
-import useGetShippingMethods from '../../hooks/useGetShippingMethods'
 import useAddEmailToCart from '../../hooks/useAddEmailToCart'
 import useAddShippingMethodToCart from '../../hooks/useAddShippingMethodToCart'
 import useAddShippingAddress from '../../hooks/useAddShippingAddress'

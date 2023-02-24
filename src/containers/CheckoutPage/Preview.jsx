@@ -1,6 +1,3 @@
-import { useContext, useEffect, useState } from 'react'
-import { getCartItems } from '../../services/cartService'
-import { CartCountContext } from '../../utils/Context'
 import ProductList from '../../components/ProductList'
 import { useCartContext } from '../../contexts/CartContext'
 

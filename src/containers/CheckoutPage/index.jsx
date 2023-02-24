@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 import { Navigate } from 'react-router-dom'
 import { useCartContext } from '../../contexts/CartContext'
 import useGetShippingMethods from '../../hooks/useGetShippingMethods'
@@ -37,8 +37,7 @@ const CheckoutPage = () => {
       ) : step === 2 ? (
         <Preview setStep={setStep} />
       ) : step === 3 ? (
-        // <Payment setStep={setStep} setSuccessMessage={setSuccessMessage} />
-        <Success successMessage={successMessage} />
+        <Payment setStep={setStep} setSuccessMessage={setSuccessMessage} />
       ) : (
         <Success successMessage={successMessage} />
       )}
