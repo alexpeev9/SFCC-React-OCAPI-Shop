@@ -1,11 +1,10 @@
-import { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import Logo from './assets/logo.svg'
-import { CartCountContext } from '../../utils/Context'
 import './assets/style.css'
+import { useCartContext } from '../../contexts/CartContext'
 
 const Header = () => {
-  const [cartCount] = useContext(CartCountContext)
+  const { count } = useCartContext() // adds token to request
   return (
     <header className='d-flex justify-content-around align-items-center bg-dark text-white'>
       <Link to='/'>
@@ -17,7 +16,7 @@ const Header = () => {
       >
         <i className='cart_icon bi bi-handbag text-white'></i>
         <span className='position-absolute top-0 end-0 bg-warning text-white rounded-circle badge p-2'>
-          {cartCount}
+          {count}
         </span>
       </Link>
     </header>
