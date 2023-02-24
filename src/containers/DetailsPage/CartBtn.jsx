@@ -1,39 +1,43 @@
-import { useContext } from 'react'
-import { addItemToCart } from '../../services/cartService'
-import { CartCountContext } from '../../utils/Context'
+import { useCartContext } from '../../contexts/CartContext'
+import useAddToCart from '../../hooks/useAddToCart'
+import useCreateCart from '../../hooks/useCreateCart'
 
 const CartBtn = ({ quantity, selectedAttributes, variants, productBaseID }) => {
-  const setCartCount = useContext(CartCountContext)[1]
+  const { cart } = useCartContext()
+  const { createCart } = useCreateCart()
+  const { addToCart, isAddedToCart } = useAddToCart()
 
-  const addToCart = async () => {
+  const addItemToCart = async () => {
     let productId
-    if (Object.keys(selectedAttributes).length === 0) {
-      productId = productBaseID
-    } else {
+    if (selectedAttributes) {
       productId = variants.find((v) => {
         return (
           JSON.stringify(selectedAttributes) ===
           JSON.stringify(v.variation_values)
         )
       }).product_id
+    } else {
+      productId = productBaseID
     }
-    const response = await addItemToCart(productId, quantity)
 
-    const cartItemsLength = response.product_items.length
-    setCartCount(cartItemsLength)
+    if (!cart) {
+      createCart()
+    }
+
+    addToCart(quantity, productId)
   }
 
-  const isDisabled =
-    Object.values(selectedAttributes).includes('') &&
-    Object.values(selectedAttributes).length !== 0
+  const isDisabled = selectedAttributes
+    ? Object.values(selectedAttributes).includes('')
+    : false
 
   return (
     <>
       <p className='h5'>Actions:</p>
       <button
-        disabled={isDisabled}
+        disabled={isDisabled && !isAddedToCart}
         className={`btn ${isDisabled ? 'btn-dark' : 'btn-warning'}`}
-        onClick={addToCart}
+        onClick={addItemToCart}
       >
         Add to Cart
       </button>

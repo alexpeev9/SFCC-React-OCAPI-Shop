@@ -6,7 +6,6 @@ export const useCartContext = () => useContext(CartContext)
 
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState(null)
-  const [cartItems, setCartItems] = useState(null)
   const [count, setCount] = useState(0)
 
   useEffect(() => {
@@ -16,9 +15,7 @@ export const CartProvider = ({ children }) => {
   }, [cart])
 
   return (
-    <CartContext.Provider
-      value={{ cart, setCart, count, cartItems, setCartItems }}
-    >
+    <CartContext.Provider value={{ cart, setCart, count }}>
       {children}
     </CartContext.Provider>
   )

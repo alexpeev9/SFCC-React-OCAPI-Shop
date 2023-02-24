@@ -4,7 +4,7 @@ import './assets/style.css'
 import { useCartContext } from '../../contexts/CartContext'
 
 const Header = () => {
-  const { count } = useCartContext() // adds token to request
+  const { count } = useCartContext()
   return (
     <header className='d-flex justify-content-around align-items-center bg-dark text-white'>
       <Link to='/'>

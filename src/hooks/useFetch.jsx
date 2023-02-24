@@ -3,7 +3,7 @@ import { useTokenContext } from '../contexts/TokenContext'
 import { fetchData } from '../services/fetchService'
 
 const useFetch = (method, url, body) => {
-  const { token } = useTokenContext() // adds token to request
+  const { token } = useTokenContext()
   const [params, setParams] = useState({ method, url, body })
 
   const [data, setData] = useState(null)

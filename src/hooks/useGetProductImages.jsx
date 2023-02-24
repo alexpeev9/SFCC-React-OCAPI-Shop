@@ -3,7 +3,7 @@ import { useTokenContext } from '../contexts/TokenContext'
 import { fetchData } from '../services/fetchService'
 
 const useGetProductImages = (id) => {
-  const { token } = useTokenContext() // adds token to request
+  const { token } = useTokenContext()
   const [data, setData] = useState(null)
   const [error, setError] = useState(null)
   const [productId, setProductId] = useState(id)
