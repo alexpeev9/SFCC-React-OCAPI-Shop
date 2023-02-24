@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 const Success = ({ successMessage }) => {
@@ -6,6 +5,7 @@ const Success = ({ successMessage }) => {
     <>
       <h2>Success</h2>
       <div className='container bg-dark rounded text-white my-1 py-4 px-5'>
+        {successMessage}
         <Link to='/' className='btn btn-light my-0'>
           to Home Page
         </Link>

@@ -1,34 +1,26 @@
-import { useContext, useEffect, useState } from 'react'
+import { useState } from 'react'
 import Dropdown from '../../components/Dropdown'
 import InputField from '../../components/InputField'
-import {
-  addPaymentMethod,
-  createOrder,
-  getPaymentMethods
-} from '../../services/paymentService'
-import { CartCountContext } from '../../utils/Context'
+import useGetPaymentMethods from '../../hooks/useGetPaymentMethods'
+import useAddPayment from '../../hooks/useAddPayment'
+import useCreateOrder from '../../hooks/useCreateOrder'
 
 const Payment = ({ setStep, setSuccessMessage }) => {
-  const setCartCount = useContext(CartCountContext)[1]
-  const [paymentMethods, setPaymentMethods] = useState(null)
+  const { data: paymentMethods } = useGetPaymentMethods()
+  const { addPayment, isPayed } = useAddPayment()
+  const { createOrder, orderNumber } = useCreateOrder()
+
   const [requirements, setRequirements] = useState({
     number_lengths: [13, 16],
     security_code_length: 3
   })
-  useEffect(() => {
-    const getCart = async () => {
-      const response = await getPaymentMethods()
-      setPaymentMethods(response)
-      setRequirements(response[0]) // get first method requirements
-    }
-    getCart()
-  }, [])
+
   const [cardInfo, setCardInfo] = useState({
     firstName: '',
     lastName: '',
     cardNumber: '',
     securityCode: '',
-    cardType: '',
+    cardType: paymentMethods ? paymentMethods[0].card_type : 'Visa',
     expirationMonth: '',
     expirationYear: ''
   })
@@ -45,29 +37,19 @@ const Payment = ({ setStep, setSuccessMessage }) => {
     setCardInfo({ ...cardInfo, [name]: value })
   }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    const formData = new FormData(e.target)
-    const data = Object.fromEntries(formData)
-    setCardInfo(data)
-    const payment = await addPaymentMethod(data)
-    if (payment) {
-      const order = await createOrder()
-      setCartCount(0)
-      if (order) {
-        setSuccessMessage(order.order_no)
-      }
-    }
-    setStep(4)
+  const makeOrder = async () => {
+    await addPayment(cardInfo)
+    await createOrder()
+    console.log(orderNumber)
   }
 
   return (
     <>
-      <h2>Payment Info</h2>
+      <h2>Payment Info {isPayed}</h2>
       <div className='container bg-dark rounded text-white my-1 py-4 px-5'>
         <form
           className='row d-flex justify-content-center'
-          onSubmit={handleSubmit}
+          onSubmit={makeOrder}
         >
           <Dropdown
             name={'cardType'}
@@ -148,9 +130,6 @@ const Payment = ({ setStep, setSuccessMessage }) => {
             </button>
           </div>
         </form>
-        <button className='btn btn-light me-2' onClick={() => setStep(2)}>
-          Back
-        </button>
       </div>
     </>
   )
