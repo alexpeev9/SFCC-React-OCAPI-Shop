@@ -14,19 +14,14 @@ import CartBtn from './CartBtn'
 const DetailsPage = () => {
   const { productID } = useParams()
   const {
-    data: product,
+    product,
     error: productError,
     attributes,
-    setAttributes,
+    variants,
     selectedAttributes,
-    setSelectedAttributes,
-    variants
+    setSelectedAttributes
   } = useGetProductDetails(productID)
-  const {
-    data: images,
-    setProductId: setProductId,
-    error: imagesError
-  } = useGetProductImages(productID)
+  const { data: images, setProductId } = useGetProductImages(productID)
   const [quantity, setQuantity] = useState(1)
 
   return !productError ? (
@@ -90,7 +85,6 @@ const DetailsPage = () => {
             </div>
             <Attributes
               attributes={attributes}
-              setAttributes={setAttributes}
               selectedAttributes={selectedAttributes}
               setSelectedAttributes={setSelectedAttributes}
               variants={variants}

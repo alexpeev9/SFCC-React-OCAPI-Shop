@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { createToken } from '../services/fetchService'
+import { createToken } from '../services/tokenService'
 
 const useGetToken = () => {
   const [token, setToken] = useState(null)
