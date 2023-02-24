@@ -1,10 +1,12 @@
-import { StrictMode } from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App'
+
+// Add Bootstrap and Icons
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/js/bootstrap.min.js'
+import 'bootstrap-icons/font/bootstrap-icons.css'
+
+import App from './containers/App'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
-root.render(
-  <StrictMode>
-    <App />
-  </StrictMode>
-)
+
+root.render(<App />)
