@@ -1,21 +1,10 @@
-import { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-import { CartCountContext } from '../../utils/Context'
-import { getCartItems } from '../../services/cartService'
-
 import ProductList from '../../components/ProductList'
+import { useCartContext } from '../../contexts/CartContext'
 
 const CartPage = () => {
-  const [cart, setCart] = useState(null)
-  const cartCount = useContext(CartCountContext)[0]
-  useEffect(() => {
-    const getCart = async () => {
-      const cartInfo = await getCartItems()
-      setCart(cartInfo)
-    }
-    getCart()
-  }, [cartCount])
+  const { cart } = useCartContext()
   return (
     <main className='container py-3'>
       <h1>Cart</h1>

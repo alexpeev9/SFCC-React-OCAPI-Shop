@@ -1,22 +1,14 @@
-import { useContext } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { getCartLength, removeItemFromCart } from '../../services/cartService'
-import { CartCountContext } from '../../utils/Context'
+import { Link } from 'react-router-dom'
+
+import useRemoveFromCart from '../../hooks/useRemoveFromCart'
 
 const Product = ({ item, currency }) => {
-  const setCartCount = useContext(CartCountContext)[1]
-  const navigate = useNavigate()
+  const { removeFromCart } = useRemoveFromCart()
 
   const removeProduct = async (id) => {
-    const response = await removeItemFromCart(id)
-    if (response) {
-      const length = await getCartLength()
-      setCartCount(length)
-      if (length === 0) {
-        navigate('/')
-      }
-    }
+    removeFromCart(id)
   }
+
   return (
     <div className='row align-items-xl-center'>
       <div className='col-12 col-xl-7 py-2'>
