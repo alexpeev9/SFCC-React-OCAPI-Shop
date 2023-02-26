@@ -1,3 +1,5 @@
+import env from '../env'
+
 export const fetchData = async (token, input) => {
   const body = {
     method: input.method,
@@ -10,10 +12,7 @@ export const fetchData = async (token, input) => {
 
   try {
     let ok, data
-    const response = await fetch(
-      `${process.env.REACT_APP_API_URL}${input.url}`,
-      body
-    )
+    const response = await fetch(`${env.apiUrl}${input.url}`, body)
     if (response.ok) {
       ok = true
       data = await response.json()
