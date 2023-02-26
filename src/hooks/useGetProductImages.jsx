@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
-import { useTokenContext } from '../contexts/TokenContext'
+
 import { fetchData } from '../services/fetchService'
+
+import { useTokenContext } from '../contexts/TokenContext'
 
 const useGetProductImages = (id) => {
   const { token } = useTokenContext()

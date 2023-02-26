@@ -1,5 +1,6 @@
-import InputField from '../../components/InputField'
 import useAddBillingAddress from '../../hooks/useAddBillingAddress'
+
+import InputField from '../../components/InputField'
 
 const BillingAddress = ({ shippingInfo, setShippingInfo, setStep }) => {
   const { addBillingAddress } = useAddBillingAddress()

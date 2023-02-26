@@ -1,6 +1,8 @@
-import InputField from '../../components/InputField'
 import { Link } from 'react-router-dom'
+
 import useAddShippingAddress from '../../hooks/useAddShippingAddress'
+
+import InputField from '../../components/InputField'
 
 const ShippingAddress = ({ shippingInfo, setShippingInfo, setStep }) => {
   const { addShippingAddress } = useAddShippingAddress()

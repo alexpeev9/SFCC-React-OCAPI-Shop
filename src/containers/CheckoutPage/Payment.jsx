@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import { Navigate } from 'react-router-dom'
-import Dropdown from '../../components/Dropdown'
-import InputField from '../../components/InputField'
+
 import useGetPaymentMethods from '../../hooks/useGetPaymentMethods'
 import useAddPayment from '../../hooks/useAddPayment'
 import useCreateOrder from '../../hooks/useCreateOrder'
+
+import Dropdown from '../../components/Dropdown'
+import InputField from '../../components/InputField'
 
 const Payment = ({ setStep }) => {
   const { data: paymentMethods } = useGetPaymentMethods()

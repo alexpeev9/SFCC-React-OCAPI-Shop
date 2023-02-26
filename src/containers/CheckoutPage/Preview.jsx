@@ -1,5 +1,6 @@
-import ProductList from '../../components/ProductList'
 import { useCartContext } from '../../contexts/CartContext'
+
+import ProductList from '../../components/ProductList'
 
 const Preview = ({ setStep }) => {
   const { cart } = useCartContext()

@@ -1,17 +1,18 @@
-import Dropdown from '../../components/Dropdown'
-import useAddShippingMethodToCart from '../../hooks/useAddShippingMethodToCart'
+import useAddShippingMethod from '../../hooks/useAddShippingMethod'
 import useGetShippingMethods from '../../hooks/useGetShippingMethods'
 
+import Dropdown from '../../components/Dropdown'
+
 const ShippingMethod = ({ shippingInfo, setShippingInfo, setStep }) => {
-  const { addShippingMethodToCart } = useAddShippingMethodToCart()
+  const { addShippingMethod } = useAddShippingMethod()
   const { data: methods } = useGetShippingMethods()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (shippingInfo.shippingMethod === '') {
-      await addShippingMethodToCart(methods[0].id)
+      await addShippingMethod(methods[0].id)
     }
-    await addShippingMethodToCart(shippingInfo.shippingMethod)
+    await addShippingMethod(shippingInfo.shippingMethod)
     setStep(3)
   }
 

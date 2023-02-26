@@ -8,8 +8,6 @@ import Attributes from './Attributes'
 import CartBtn from './CartBtn'
 import Quantity from './Quantity'
 
-import './assets/style.css'
-
 const DetailsPage = () => {
   const { productID } = useParams()
   const {

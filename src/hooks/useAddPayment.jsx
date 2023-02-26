@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
+
+import { fetchData } from '../services/fetchService'
+
 import { useCartContext } from '../contexts/CartContext'
 import { useTokenContext } from '../contexts/TokenContext'
-import { fetchData } from '../services/fetchService'
 
 const useAddPayment = () => {
   const { token } = useTokenContext()

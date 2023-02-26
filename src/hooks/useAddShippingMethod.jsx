@@ -1,15 +1,17 @@
 import { useEffect, useState } from 'react'
-import { useCartContext } from '../contexts/CartContext'
-import { useTokenContext } from '../contexts/TokenContext'
+
 import { fetchData } from '../services/fetchService'
 
-const useAddShippingMethodToCart = () => {
+import { useCartContext } from '../contexts/CartContext'
+import { useTokenContext } from '../contexts/TokenContext'
+
+const useAddShippingMethod = () => {
   const { token } = useTokenContext()
   const { cart, setCart } = useCartContext()
   const [error, setError] = useState(null)
   const [shippingMethod, setShippingMethod] = useState(null)
 
-  const addShippingMethodToCart = async (input) => {
+  const addShippingMethod = async (input) => {
     setShippingMethod(input)
   }
 
@@ -34,7 +36,7 @@ const useAddShippingMethodToCart = () => {
     fetch()
   }, [token, cart, setCart, shippingMethod])
 
-  return { addShippingMethodToCart, error }
+  return { addShippingMethod, error }
 }
 
-export default useAddShippingMethodToCart
+export default useAddShippingMethod
