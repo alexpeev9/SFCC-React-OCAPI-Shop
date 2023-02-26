@@ -16,7 +16,7 @@ const useAddBillingAddress = () => {
   useEffect(() => {
     const fetch = async () => {
       if (token && cart && billingAddress) {
-        const { firstName, lastName, address, city, countryCode } =
+        const { firstName, lastName, address, city, phone, countryCode } =
           billingAddress
         const { ok, data } = await fetchData(token, {
           method: 'PUT',
@@ -26,6 +26,7 @@ const useAddBillingAddress = () => {
             last_name: lastName,
             address1: address,
             city: city,
+            phone: phone,
             country_code: countryCode
           }
         })

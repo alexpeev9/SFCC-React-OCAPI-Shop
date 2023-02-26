@@ -5,10 +5,11 @@ import { fetchData } from '../services/fetchService'
 
 const useAddPayment = () => {
   const { token } = useTokenContext()
-  const { cart, setCart } = useCartContext()
+  const { cart } = useCartContext()
   const [error, setError] = useState(null)
   const [payment, setPayment] = useState(null)
   const [isPayed, setIsPayed] = useState(false)
+
   const addPayment = async (data) => {
     setPayment(data)
   }
@@ -50,7 +51,7 @@ const useAddPayment = () => {
       }
     }
     fetch()
-  }, [token, cart, setCart, payment])
+  }, [token, cart, payment])
 
   return { addPayment, isPayed, error }
 }

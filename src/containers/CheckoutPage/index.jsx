@@ -1,49 +1,59 @@
 import { useState } from 'react'
 import { Navigate } from 'react-router-dom'
-import { useCartContext } from '../../contexts/CartContext'
-import useGetShippingMethods from '../../hooks/useGetShippingMethods'
 
-import Payment from './Payment'
+import { useCartContext } from '../../contexts/CartContext'
+
+import ShippingAddress from './ShippingAddress'
+import ShippingMethod from './ShippingMethod'
+import BillingAddress from './BillingAddress'
 import Preview from './Preview'
-import Shipment from './Shipment'
-import Success from './Success'
+import Payment from './Payment'
 
 const CheckoutPage = () => {
   const { cart } = useCartContext()
   const [step, setStep] = useState(1)
-  const [successMessage, setSuccessMessage] = useState(null)
-  const { data: methods } = useGetShippingMethods()
 
   const [shippingInfo, setShippingInfo] = useState({
-    email: '',
     firstName: '',
     lastName: '',
+    phone: '',
+    address: '',
     city: '',
     countryCode: '',
-    address: '',
-    shippingMethod: methods ? methods[0].id : '001'
+    shippingMethod: ''
   })
 
-  return cart ? (
+  return (
     <main className='container py-2'>
-      <h1>Checkout</h1>
+      <h1>Checkout - {step}/5</h1>
       {step === 1 ? (
-        <Shipment
+        cart ? (
+          <ShippingAddress
+            shippingInfo={shippingInfo}
+            setShippingInfo={setShippingInfo}
+            setStep={setStep}
+          />
+        ) : (
+          <Navigate to='/' />
+        )
+      ) : step === 2 ? (
+        <ShippingMethod
           shippingInfo={shippingInfo}
           setShippingInfo={setShippingInfo}
-          methods={methods}
           setStep={setStep}
         />
-      ) : step === 2 ? (
-        <Preview setStep={setStep} />
       ) : step === 3 ? (
-        <Payment setStep={setStep} setSuccessMessage={setSuccessMessage} />
+        <BillingAddress
+          shippingInfo={shippingInfo}
+          setShippingInfo={setShippingInfo}
+          setStep={setStep}
+        />
+      ) : step === 4 ? (
+        <Preview setStep={setStep} />
       ) : (
-        <Success successMessage={successMessage} />
+        <Payment setStep={setStep} />
       )}
     </main>
-  ) : (
-    <Navigate to='/' />
   )
 }
 

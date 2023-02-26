@@ -1,22 +1,13 @@
 import InputField from '../../components/InputField'
-import Dropdown from '../../components/Dropdown'
 import { Link } from 'react-router-dom'
-import useAddEmailToCart from '../../hooks/useAddEmailToCart'
-import useAddShippingMethodToCart from '../../hooks/useAddShippingMethodToCart'
 import useAddShippingAddress from '../../hooks/useAddShippingAddress'
-import useAddBillingAddress from '../../hooks/useAddBillingAddress'
 
-const Shipment = ({ shippingInfo, setShippingInfo, methods, setStep }) => {
-  const { addEmailToCart } = useAddEmailToCart()
-  const { addShippingMethodToCart } = useAddShippingMethodToCart()
+const ShippingAddress = ({ shippingInfo, setShippingInfo, setStep }) => {
   const { addShippingAddress } = useAddShippingAddress()
-  const { addBillingAddress } = useAddBillingAddress()
 
-  const handleSubmit = async () => {
-    await addEmailToCart(shippingInfo.email)
-    await addShippingMethodToCart(shippingInfo.shippingMethod)
+  const handleSubmit = async (e) => {
+    e.preventDefault()
     await addShippingAddress(shippingInfo)
-    await addBillingAddress(shippingInfo)
     setStep(2)
   }
 
@@ -26,19 +17,12 @@ const Shipment = ({ shippingInfo, setShippingInfo, methods, setStep }) => {
   }
   return (
     <>
-      <h2>Shipping Info</h2>
+      <h2>Shipping Address</h2>
       <div className='container bg-dark rounded text-white my-1 py-4 px-5'>
         <form
-          className='row d-flex justify-content-center'
           onSubmit={handleSubmit}
+          className='row d-flex justify-content-center'
         >
-          <InputField
-            name={'email'}
-            label={'Email'}
-            type={'email'}
-            value={shippingInfo.email}
-            action={onInputChange}
-          />
           <InputField
             name={'firstName'}
             label={'First Name'}
@@ -51,6 +35,13 @@ const Shipment = ({ shippingInfo, setShippingInfo, methods, setStep }) => {
             label={'Last Name'}
             type={'text'}
             value={shippingInfo.lastName}
+            action={onInputChange}
+          />
+          <InputField
+            name={'phone'}
+            label={'Phone'}
+            type={'text'}
+            value={shippingInfo.phone}
             action={onInputChange}
           />
           <InputField
@@ -74,25 +65,9 @@ const Shipment = ({ shippingInfo, setShippingInfo, methods, setStep }) => {
             value={shippingInfo.address}
             action={onInputChange}
           />
-          <Dropdown
-            name={'shippingMethod'}
-            label={'Shipping Method'}
-            action={onInputChange}
-            body={
-              methods ? (
-                methods.map((method, key) => (
-                  <option value={method.id} key={key}>
-                    {method.name} - {method.price} USD
-                  </option>
-                ))
-              ) : (
-                <option value='error'>Currently, no shipping methods</option>
-              )
-            }
-          />
           <div className='col-12 d-flex justify-content-center'>
             <button className='btn btn-light px-4 my-0 mt-2 mb-1' type='submit'>
-              <i className='bi bi-map'></i> Add Address
+              <i className='bi bi-map'></i> Add Shipping Address
             </button>
           </div>
         </form>
@@ -104,4 +79,4 @@ const Shipment = ({ shippingInfo, setShippingInfo, methods, setStep }) => {
   )
 }
 
-export default Shipment
+export default ShippingAddress

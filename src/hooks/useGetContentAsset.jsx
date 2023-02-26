@@ -15,7 +15,7 @@ const useGetContentAsset = (id) => {
           url: `/content/${id}`
         })
         if (ok) {
-          setData(data)
+          setData(data.c_body)
         } else {
           setError(data.message)
         }

@@ -1,15 +1,14 @@
 import { useState } from 'react'
 import { Navigate, useParams } from 'react-router-dom'
 
-import './assets/style.css'
-
-// import CartBtn from './CartBtn'
-import Quantity from './Quantity'
-import 'bootstrap/dist/css/bootstrap.min.css'
 import useGetProductDetails from '../../hooks/useGetProductDetails'
 import useGetProductImages from '../../hooks/useGetProductImages'
+
 import Attributes from './Attributes'
 import CartBtn from './CartBtn'
+import Quantity from './Quantity'
+
+import './assets/style.css'
 
 const DetailsPage = () => {
   const { productID } = useParams()
