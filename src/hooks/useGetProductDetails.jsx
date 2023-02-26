@@ -6,9 +6,10 @@ import { useTokenContext } from '../contexts/TokenContext'
 
 const useGetProductDetails = (id) => {
   const { token } = useTokenContext()
+
+  const [productId, setProductId] = useState(id)
   const [product, setProduct] = useState(null)
   const [error, setError] = useState(null)
-  const [productId, setProductId] = useState(id)
   const [attributes, setAttributes] = useState(null)
   const [variants, setVariants] = useState(null)
   const [selectedAttributes, setSelectedAttributes] = useState(null)

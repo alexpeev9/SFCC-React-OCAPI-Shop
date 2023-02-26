@@ -8,6 +8,7 @@ import { useTokenContext } from '../contexts/TokenContext'
 const useAddShippingMethod = () => {
   const { token } = useTokenContext()
   const { cart, setCart } = useCartContext()
+
   const [error, setError] = useState(null)
   const [shippingMethod, setShippingMethod] = useState(null)
 

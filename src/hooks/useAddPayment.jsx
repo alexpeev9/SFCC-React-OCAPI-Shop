@@ -8,6 +8,7 @@ import { useTokenContext } from '../contexts/TokenContext'
 const useAddPayment = () => {
   const { token } = useTokenContext()
   const { cart } = useCartContext()
+
   const [error, setError] = useState(null)
   const [payment, setPayment] = useState(null)
   const [isPayed, setIsPayed] = useState(false)

@@ -8,8 +8,10 @@ import { useTokenContext } from '../contexts/TokenContext'
 
 const useAddItemToCart = () => {
   const navigate = useNavigate()
+
   const { token } = useTokenContext()
   const { cart, setCart } = useCartContext()
+
   const [error, setError] = useState(null)
   const [product, setProduct] = useState(null)
   const [isAddedToCart, setIsAddedToCart] = useState(false)

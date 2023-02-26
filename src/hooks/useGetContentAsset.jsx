@@ -6,6 +6,7 @@ import { useTokenContext } from '../contexts/TokenContext'
 
 const useGetContentAsset = (id) => {
   const { token } = useTokenContext()
+
   const [data, setData] = useState(null)
   const [error, setError] = useState(null)
 

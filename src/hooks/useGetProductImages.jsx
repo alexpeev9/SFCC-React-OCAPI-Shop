@@ -6,9 +6,10 @@ import { useTokenContext } from '../contexts/TokenContext'
 
 const useGetProductImages = (id) => {
   const { token } = useTokenContext()
+
+  const [productId, setProductId] = useState(id)
   const [data, setData] = useState(null)
   const [error, setError] = useState(null)
-  const [productId, setProductId] = useState(id)
 
   useEffect(() => {
     const fetch = async () => {
