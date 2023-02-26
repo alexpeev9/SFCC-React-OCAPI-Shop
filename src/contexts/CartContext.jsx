@@ -9,13 +9,13 @@ export const CartProvider = ({ children }) => {
   const [count, setCount] = useState(0)
 
   useEffect(() => {
-    if (cart && cart.product_items) {
-      setCount(cart.product_items.length)
+    if (cart) {
+      setCount(cart.product_items?.length || 0)
     }
   }, [cart])
 
   return (
-    <CartContext.Provider value={{ cart, setCart, count }}>
+    <CartContext.Provider value={{ cart, setCart, count, setCount }}>
       {children}
     </CartContext.Provider>
   )

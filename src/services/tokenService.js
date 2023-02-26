@@ -1,19 +1,18 @@
+import env from '../env'
+
 export const createToken = async () => {
   const body = {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'x-dw-client-id': `${process.env.REACT_APP_HEADER_VALUE}`
+      'x-dw-client-id': `${env.headerValue}`
     },
     body: JSON.stringify({ type: 'guest' })
   }
 
   try {
     let ok, data
-    const response = await fetch(
-      `${process.env.REACT_APP_API_URL}/customers/auth`,
-      body
-    )
+    const response = await fetch(`${env.apiUrl}/customers/auth`, body)
     if (response.ok) {
       const token = response.headers.get('authorization') // get token from headers
       // const decodedToken = jwtDecode(token)

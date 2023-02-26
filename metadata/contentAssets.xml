@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library xmlns="http://www.demandware.com/xml/impex/library/2006-10-31" library-id="RefArchSharedLibrary">
+ <content content-id="thanks-for-purchase-message">
+        <display-name xml:lang="x-default">Thanks For Purchase Message</display-name>
+        <online-flag>true</online-flag>
+        <searchable-flag>false</searchable-flag>
+        <page-attributes/>
+        <custom-attributes>
+            <custom-attribute attribute-id="body" xml:lang="x-default">Thank you for your order "[orderID]" ! Very soon our representative will contact you to confirm the shipment.</custom-attribute>
+        </custom-attributes>
+    </content>
+    <content content-id="ocapi-footer">
+        <display-name xml:lang="x-default">Ocapi Footer</display-name>
+        <description xml:lang="x-default">Ocapi Footer for React App</description>
+        <online-flag>true</online-flag>
+        <searchable-flag>false</searchable-flag>
+        <page-attributes/>
+        <custom-attributes>
+            <custom-attribute attribute-id="body" xml:lang="x-default">&lt;a class="text-white text-decoration-none" href="http://proxy.info:3000/"&gt;Home&lt;/a&gt; &lt;a class="text-white text-decoration-none"  href="http://proxy.info:3000/cart"&gt;Cart&lt;/a&gt; &lt;a class="text-white text-decoration-none"  href="https://github.com/alexpeev9" target="_blank"&gt;Social&lt;/a&gt;</custom-attribute>
+        </custom-attributes>
+    </content>
+</library>

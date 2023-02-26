@@ -1,11 +1,14 @@
+import { useEffect, useState } from 'react'
+
+import { fetchData } from '../services/fetchService'
+
 import { useTokenContext } from '../contexts/TokenContext'
 import { useCartContext } from '../contexts/CartContext'
-import { fetchData } from '../services/fetchService'
-import { useEffect, useState } from 'react'
 
 const useCreateCart = () => {
   const { token } = useTokenContext()
   const { setCart } = useCartContext()
+
   const [error, setError] = useState(null)
   const [isCreated, setIsCreated] = useState(false)
 

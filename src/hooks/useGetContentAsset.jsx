@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react'
-import { useTokenContext } from '../contexts/TokenContext'
+
 import { fetchData } from '../services/fetchService'
+
+import { useTokenContext } from '../contexts/TokenContext'
 
 const useGetContentAsset = (id) => {
   const { token } = useTokenContext()
+
   const [data, setData] = useState(null)
   const [error, setError] = useState(null)
 
@@ -15,7 +18,7 @@ const useGetContentAsset = (id) => {
           url: `/content/${id}`
         })
         if (ok) {
-          setData(data)
+          setData(data.c_body)
         } else {
           setError(data.message)
         }

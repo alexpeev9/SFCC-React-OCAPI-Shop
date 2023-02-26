@@ -1,11 +1,14 @@
 import { useState } from 'react'
-import Dropdown from '../../components/Dropdown'
-import InputField from '../../components/InputField'
+import { Navigate } from 'react-router-dom'
+
 import useGetPaymentMethods from '../../hooks/useGetPaymentMethods'
 import useAddPayment from '../../hooks/useAddPayment'
 import useCreateOrder from '../../hooks/useCreateOrder'
 
-const Payment = ({ setStep, setSuccessMessage }) => {
+import Dropdown from '../../components/Dropdown'
+import InputField from '../../components/InputField'
+
+const Payment = ({ setStep }) => {
   const { data: paymentMethods } = useGetPaymentMethods()
   const { addPayment, isPayed } = useAddPayment()
   const { createOrder, orderNumber } = useCreateOrder()
@@ -37,18 +40,25 @@ const Payment = ({ setStep, setSuccessMessage }) => {
     setCardInfo({ ...cardInfo, [name]: value })
   }
 
-  const makeOrder = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault()
     await addPayment(cardInfo)
-    await createOrder()
+    setStep(5)
   }
 
-  return (
+  const makeOrder = async () => {
+    if (isPayed) {
+      await createOrder()
+    }
+  }
+
+  return !orderNumber ? (
     <>
-      <h2>Payment Info {isPayed}</h2>
+      <h2>Payment Info</h2>
       <div className='container bg-dark rounded text-white my-1 py-4 px-5'>
         <form
           className='row d-flex justify-content-center'
-          onSubmit={makeOrder}
+          onSubmit={handleSubmit}
         >
           <Dropdown
             name={'cardType'}
@@ -123,14 +133,37 @@ const Payment = ({ setStep, setSuccessMessage }) => {
             value={cardInfo.lastName}
             action={onInputChange}
           />
-          <div className='col-12 d-flex justify-content-center'>
-            <button className='btn btn-light px-4 my-0 mt-2 mb-1' type='submit'>
-              <i className='bi bi-credit-card'></i> Make Order
+          <div className='row d-flex justify-content-center'>
+            <button
+              className='col-md-2 col-6 btn btn-light px-4 my-0 mt-2 mb-1 align-items-center'
+              type='submit'
+            >
+              <i className='bi bi-credit-card'></i> Make Payment
             </button>
+            {isPayed ? (
+              <>
+                <p className='col-12 text-success text-center h3'>
+                  Payment is Successfull
+                </p>
+                <button
+                  className='col-md-2 col-6 btn btn-light px-4 my-0 mt-2 mb-1 align-items-stretch'
+                  onClick={makeOrder}
+                >
+                  <i className='bi bi-cash-coin'></i> Create Order
+                </button>
+              </>
+            ) : (
+              <></>
+            )}
           </div>
         </form>
+        <button className='btn btn-light me-2' onClick={() => setStep(3)}>
+          Back
+        </button>
       </div>
     </>
+  ) : (
+    <Navigate to={`/order/${orderNumber}`} />
   )
 }
 

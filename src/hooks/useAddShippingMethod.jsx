@@ -1,30 +1,33 @@
 import { useEffect, useState } from 'react'
-import { useCartContext } from '../contexts/CartContext'
-import { useTokenContext } from '../contexts/TokenContext'
+
 import { fetchData } from '../services/fetchService'
 
-const useAddEmailToCart = () => {
+import { useCartContext } from '../contexts/CartContext'
+import { useTokenContext } from '../contexts/TokenContext'
+
+const useAddShippingMethod = () => {
   const { token } = useTokenContext()
   const { cart, setCart } = useCartContext()
-  const [error, setError] = useState(null)
-  const [email, setEmail] = useState(null)
 
-  const addEmailToCart = async (input) => {
-    setEmail(input)
+  const [error, setError] = useState(null)
+  const [shippingMethod, setShippingMethod] = useState(null)
+
+  const addShippingMethod = async (input) => {
+    setShippingMethod(input)
   }
 
   useEffect(() => {
     const fetch = async () => {
-      if (token && cart && email) {
+      if (token && cart && shippingMethod) {
         const { ok, data } = await fetchData(token, {
           method: 'PUT',
-          url: `/baskets/${cart.basket_id}/customer`,
+          url: `/baskets/${cart.basket_id}/shipments/me/shipping_method`,
           body: {
-            email: email
+            id: shippingMethod
           }
         })
         if (ok) {
-          setEmail(null)
+          setShippingMethod(null)
           setCart(data)
         } else {
           setError(data.message)
@@ -32,9 +35,9 @@ const useAddEmailToCart = () => {
       }
     }
     fetch()
-  }, [token, cart, setCart, email])
+  }, [token, cart, setCart, shippingMethod])
 
-  return { addEmailToCart, error }
+  return { addShippingMethod, error }
 }
 
-export default useAddEmailToCart
+export default useAddShippingMethod

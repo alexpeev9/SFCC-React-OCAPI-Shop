@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react'
+
+import { fetchData } from '../services/fetchService'
+
 import { useCartContext } from '../contexts/CartContext'
 import { useTokenContext } from '../contexts/TokenContext'
-import { fetchData } from '../services/fetchService'
 
 const useCreateOrder = () => {
   const { token } = useTokenContext()
-  const { cart, setCart } = useCartContext()
+  const { cart, setCart, setCount } = useCartContext()
+
   const [error, setError] = useState(null)
   const [orderNumber, setOrderNumber] = useState(null)
   const [isReady, setIsReady] = useState(false)
@@ -25,15 +28,17 @@ const useCreateOrder = () => {
           }
         })
         if (ok) {
-          setIsReady(false)
           setOrderNumber(data.order_no)
+          setCart(null)
+          setCount(0)
+          setIsReady(false)
         } else {
           setError(data.message)
         }
       }
     }
     fetch()
-  }, [token, cart, setCart, isReady])
+  }, [token, cart, setCart, setCount, isReady])
 
   return { createOrder, orderNumber, error }
 }

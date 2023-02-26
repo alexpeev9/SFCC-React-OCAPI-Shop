@@ -1,13 +1,17 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+
+import { fetchData } from '../services/fetchService'
+
 import { useCartContext } from '../contexts/CartContext'
 import { useTokenContext } from '../contexts/TokenContext'
-import { fetchData } from '../services/fetchService'
 
 const useRemoveFromCart = () => {
   const navigate = useNavigate()
+
   const { token } = useTokenContext()
   const { cart, setCart } = useCartContext()
+
   const [error, setError] = useState(null)
   const [productId, setProductId] = useState(null)
 

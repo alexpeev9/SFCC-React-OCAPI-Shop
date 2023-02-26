@@ -8,7 +8,7 @@ const Footer = () => {
       {!error ? (
         <footer
           className='position-fixed bottom-0 w-100 d-flex flex-wrap gap-5 justify-content-center align-items-center bg-dark'
-          dangerouslySetInnerHTML={{ __html: data?.c_body }}
+          dangerouslySetInnerHTML={{ __html: data }}
         ></footer>
       ) : (
         <></>

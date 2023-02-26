@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react'
+
+import { fetchData } from '../services/fetchService'
+
 import { useCartContext } from '../contexts/CartContext'
 import { useTokenContext } from '../contexts/TokenContext'
-import { fetchData } from '../services/fetchService'
 
 const useAddShippingAddress = () => {
   const { token } = useTokenContext()
   const { cart, setCart } = useCartContext()
+
   const [error, setError] = useState(null)
   const [shippingAddress, setShippingAddress] = useState(null)
 
@@ -16,7 +19,7 @@ const useAddShippingAddress = () => {
   useEffect(() => {
     const fetch = async () => {
       if (token && cart && shippingAddress) {
-        const { firstName, lastName, address, city, countryCode } =
+        const { firstName, lastName, address, city, phone, countryCode } =
           shippingAddress
         const { ok, data } = await fetchData(token, {
           method: 'PUT',
@@ -24,6 +27,7 @@ const useAddShippingAddress = () => {
           body: {
             first_name: firstName,
             last_name: lastName,
+            phone: phone,
             address1: address,
             city: city,
             country_code: countryCode
