@@ -2,7 +2,7 @@ import { Link, useParams } from 'react-router-dom'
 
 import useGetContentAsset from '../../hooks/useGetContentAsset'
 
-const Order = () => {
+const OrderPage = () => {
   const { orderID } = useParams()
   const { data, error } = useGetContentAsset('thanks-for-purchase-message')
 
@@ -27,4 +27,4 @@ const Order = () => {
   )
 }
 
-export default Order
+export default OrderPage
