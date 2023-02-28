@@ -1,70 +1,110 @@
-# SFCC React OCAPI Shop
+# 📕 SFCC React OCAPI Shop
 
-This project was created with [Create React App](https://github.com/facebook/create-react-app).
+- The main focus of this project is working with [OCAPI](https://documentation.b2c.commercecloud.salesforce.com/DOC1/index.jsp?topic=%2Fcom.demandware.dochelp%2FOCAPI%2Fcurrent%2Fusage%2FGettingStartedWithOCAPI.html) - Salesforce B2C's Open Commerce API.
 
-## Available Scripts
+- This project was created with [Create React App](https://github.com/facebook/create-react-app).
 
-In the project directory, you can run:
+### 📌 Requirements
 
-### `npm start`
+| Name | Version   |
+| ---- | :-------- |
+| Node | >=18.13.0 |
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 📌 Preview Images
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+#### Detail Page
 
-### `npm test`
+![1]
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- The project supports Master, Bundle and Base Product
 
-### `npm run build`
+#### Details Page - Selected
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+![2]
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- If a specific color is selected the carousel will change for the specific color
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+#### Cart
 
-### `npm run eject`
+![3]
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+#### Checkout - Shipping Address
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+![4]
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+#### Checkout - Shipping Method
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+![5]
 
-## Learn More
+- shipping methods are retrieved from the database
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+![6]
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+#### Checkout - Billing Address
 
-### Code Splitting
+![7]
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- To prevent a user from writing the same billing address the information from the shipping address is copied here.
 
-### Analyzing the Bundle Size
+#### Checkout - Payment Info
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+![8]
 
-### Making a Progressive Web App
+#### Checkout - Payment Method
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+![9]
 
-### Advanced Configuration
+- Payment card types are retrieved from the database. Each type of card has its validation that is applied.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+![10]
 
-### Deployment
+#### Order
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+![11]
 
-### `npm run build` fails to minify
+#### Error Page
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+![12]
+
+<!-- MARKDOWN LINKS & IMAGES -->
+
+[1]: metadata/images/1-details.png
+[2]: metadata/images/2-details-selected.png
+[3]: metadata/images/3-cart.png
+[4]: metadata/images/4-checkout-step-1.png
+[5]: metadata/images/5-checkout-step-2.png
+[6]: metadata/images/6-checkout-step-2-dropdown.png
+[7]: metadata/images/7-checkout-step-3.png
+[8]: metadata/images/8-checkout-step-4.png
+[9]: metadata/images/9-checkout-step-5.png
+[10]: metadata/images/10-checkout-step-5-validation.png
+[11]: metadata/images/11-order.png
+[12]: metadata/images/12-not-found.png
+
+### 📌 Business Manager Configuration
+
+- Be sure to update your **Open Commerce API Settings** from the Business Manager using the data from **metadata/apiSettings.json**
+
+- Import **Content Assets** from **metadata/contentAssets.xml**
+
+- After you are done you can delete the **metadata** folder
+
+### 📌 Files Configuration
+
+- Create **.env** file next to **.env.example** and fill it with your settings
+
+- Because the **OCAPI** can't work with localhost:3000, you need to **bypass** the cors configurations.
+- ⚠️ Open: `C:\Windows\System32\drivers\etc\hosts` as administrator and on the last row type `127.0.0.1 proxy.info`.
+
+### 📌 Project Setup
+
+- In your console run:
+
+```shell
+npm install
+npm run start
+```
+
+- Now you can access your project at:
+
+`http://proxy.info:3000`
