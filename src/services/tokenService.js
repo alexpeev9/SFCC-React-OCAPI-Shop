@@ -22,12 +22,12 @@ export const createToken = async () => {
       data = { token, body }
     } else {
       ok = false
-      console.log(response.fault.message) // TODO: Remove for Testing
+      console.log(response.fault.message)
       data = { message: response.fault.message }
     }
     return { ok, data }
   } catch (err) {
-    console.log(err.message) // TODO: Remove for Testing
+    console.log(err.message)
     return { ok: false, data: { message: err.message } }
   }
 }

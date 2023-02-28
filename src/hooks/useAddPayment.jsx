@@ -5,6 +5,8 @@ import { fetchData } from '../services/fetchService'
 import { useCartContext } from '../contexts/CartContext'
 import { useTokenContext } from '../contexts/TokenContext'
 
+import env from '../env'
+
 const useAddPayment = () => {
   const { token } = useTokenContext()
   const { cart } = useCartContext()
@@ -42,7 +44,7 @@ const useAddPayment = () => {
               expiration_month: Number(expirationMonth),
               expiration_year: Number(expirationYear)
             },
-            payment_method_id: 'CREDIT_CARD'
+            payment_method_id: env.paymentMethod
           }
         })
         if (ok) {
