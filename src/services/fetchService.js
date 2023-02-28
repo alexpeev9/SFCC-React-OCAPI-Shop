@@ -17,13 +17,13 @@ export const fetchData = async (token, input) => {
       ok = true
       data = await response.json()
     } else {
-      console.log(response.fault.message) // TODO: Remove for Testing
+      console.log(response.fault.message)
       ok = false
       data = { message: response.fault.message }
     }
     return { ok, data }
   } catch (err) {
-    console.log(err.message) // TODO: Remove for Testing
+    console.log(err.message)
     return { ok: false, data: { message: err.message } }
   }
 }
