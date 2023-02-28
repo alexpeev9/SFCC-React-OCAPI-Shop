@@ -14,14 +14,14 @@ const Quantity = ({ quantity, setQuantity }) => {
           onClick={() => changeQuantity('decrease')}
           className='btn btn-dark ms-2'
         >
-          <i class='bi bi-dash'></i>
+          <i className='bi bi-dash'></i>
         </button>
         <span className='mx-3'>{quantity}</span>
         <button
           onClick={() => changeQuantity('increase')}
           className='btn btn-dark me-2'
         >
-          <i class='bi bi-plus'></i>
+          <i className='bi bi-plus'></i>
         </button>
       </div>
     </>
